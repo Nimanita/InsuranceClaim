@@ -63,5 +63,17 @@ namespace InsuranceClaim.Repository
                 AllPackages.Add(pack);
             return AllPackages;
         }
+        public double GetAmount(string name)
+        {
+            foreach(var insurer in  insurerDetails)
+            {
+                if(insurer.insurerName==name)
+                {
+                    return insurer.insuranceAmountLimit;
+                }
+                
+            }
+            return -1;
+        }
     }
 }

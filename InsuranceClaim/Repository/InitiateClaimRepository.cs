@@ -8,7 +8,7 @@ namespace InsuranceClaim.Repository
 {
     public class InitiateClaimRepository
     {
-       // public InsurerDetailRepository idr = new InsurerDetailRepository();
+        public InsurerDetailRepository idr = new InsurerDetailRepository();
         public static List<InitiateClaim> initiateClaim = new()
         {
             new InitiateClaim()
@@ -62,10 +62,19 @@ namespace InsuranceClaim.Repository
             if (initiateClaim == null)
                 initiateClaim = new List<InitiateClaim>();
         }
-        public void AmountToBePaid()
+        public double AmountToBePaid(string InsurerName)
         {
-            
-
+            double AmountLimit=idr.GetAmount(InsurerName);
+            if (AmountLimit == -1)
+            {
+                return -1;
+            }
+            foreach(var obj in initiateClaim)
+            {
+                if(obj.insurerName==InsurerName)
+                    return obj.cost - AmountLimit;
+            }
+            return -1;
         }
     }
 }

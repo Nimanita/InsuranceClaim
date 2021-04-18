@@ -15,6 +15,7 @@ namespace InsuranceClaim.Controllers
     {
         // GET: InsuranceClaimController
         InsurerDetailRepository Insurer = new InsurerDetailRepository();
+        InitiateClaimRepository Initiate = new InitiateClaimRepository();
         [HttpGet("GetAllInsurerDetail")]
         public IActionResult GetAllInsurerDetail()
         {
@@ -47,6 +48,23 @@ namespace InsuranceClaim.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("CalculateBalance/{InsurerName}")]
+        public IActionResult CalculateBalance(string InsurerName )
+        {
+            try
+            {
+                double Balance = Initiate.AmountToBePaid(InsurerName);
+                if(Balance==-1)
+                {
+                    return NotFound();
+                }
+                return Ok(Balance);
 
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
