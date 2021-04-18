@@ -54,7 +54,7 @@ namespace InsuranceClaim.Controllers
             try
             {
                 double Balance = Initiate.AmountToBePaid(InsurerName);
-                if(Balance==-1) 
+                if(Balance==-1)
                 {
                     return NotFound();
                 }
